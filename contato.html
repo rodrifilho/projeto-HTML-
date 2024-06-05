@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+  <head>
+
+    <meta charset="UTF-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Luxo - Contato</title>
+
+    <link rel="shortcut icon" href="images/barco2.png" type="image/x-icon" />
+
+    <link rel="stylesheet" href="css/default.css" />
+
+  </head>
+
+
+
+  <body>
+
+    <div class="page">
+
+      <header>
+
+        <div id="title">
+
+          <img src="images/barco1.png" alt="ícone de barco" />
+
+          <div class="headtitle">
+
+            <h1>Luxo</h1>
+
+            <h2>Aluguel de iates</h2>
+
+          </div>
+
+        </div>
+
+
+
+        <nav>
+
+          <ul class="navmenu">
+
+            <li><a href="index.html">Página inicial</a></li>
+
+            <li><a href="aluguel.html">Aluguel de iates</a></li>
+
+            <li><a href="destinos.html">Destinos</a></li>
+
+            <li><a href="tripulacao.html">Tripulação</a></li>
+
+            <li><a href="contato.html" class="accent">Contato</a></li>
+
+            <li><a href="admin.html">Login</a></li>
+
+          </ul>
+
+        </nav>
+
+      </header>
+
+
+
+      <main>
+
+        <div class="pagtitle">
+
+          <div class="bgtitle"></div>
+
+          <h2>Entre em contato</h2>
+
+        </div>
+
+
+
+        <form>
+
+          <div class="entrada">
+
+            <label for="nome">Nome</label>
+
+            <input type="text" id="nome" />
+
+          </div>
+
+
+
+          <div class="entrada">
+
+            <label for="email">E-mail</label>
+
+            <input type="email" id="email" />
+
+          </div>
+
+
+
+          <div class="entrada">
+
+            <label for="msg">Mensagem</label>
+
+            <textarea cols="40" rows="7" id="msg"></textarea>
+
+          </div>
+
+        </form>
+
+
+
+        <div class="botao">
+
+          <button type="button" onclick="ver()" class="button">Enviar</button>
+
+        </div>
+
+      </main>
+
+    </div>
+
+
+
+    <footer>
+
+      <p>© 2023 por Luxo aluguel de iates</p>
+
+    </footer>
+
+
+
+    <script> src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+
+      function ver() {
+
+        console.log("Botão 'Enviar' clicado.");
+
+        let mensagem = {
+
+          nome: document.getElementById("nome").value,
+
+          email: document.getElementById("email").value,
+
+          mensagem: document.getElementById("msg").value
+
+        };
+
+        console.log("Mensagem carregando:", mensagem);
+
+        inserirMensagem(mensagem);
+
+      }
+
+
+
+      function inserirMensagem(mensagem) {
+
+        console.log("Inserindo mensagem:", mensagem);
+
+        $.ajax({
+
+          url: 'https://app-uniesp-p2-b8d2992ac568.herokuapp.com/mensagens',
+
+          method: 'POST',
+
+          data: JSON.stringify(mensagem),
+
+          dataType: 'json',
+
+          contentType: 'application/json',
+
+          success: function() {
+
+            console.log("Mensagem enviada!.");
+
+            alert("Mensagem enviada!");
+
+          },
+
+          error: function(xhr, status, error) {
+
+            console.error("Erro ao enviar mensagem:", status, error);
+
+            console.error("Detalhes do erro:", xhr.responseText);
+
+            alert("Erro ao enviar mensagem.");
+
+          }
+
+        });
+
+      }
+
+
+
+      function obterMensagens() {
+
+        return new Promise(function(resolve, reject) {
+
+          $.ajax({
+
+            url: 'https://app-uniesp-p2-b8d2992ac568.herokuapp.com/mensagens',
+
+            method: 'GET',
+
+            dataType: 'json',
+
+            success: function(data) {
+
+              resolve(data);
+
+            },
+
+            error: function() {
+
+              reject('Erro ao obter mensagens.');
+
+            }
+
+          });
+
+        });
+
+      }
+
+
+
+      function validarUsuario(objLoginSenha) {
+
+        var retorno = false;
+
+
+
+        $.ajax({
+
+          url: 'https://app-uniesp-p2-b8d2992ac568.herokuapp.com/usuarios/validar',
+
+          method: 'POST',
+
+          dataType: 'json',
+
+          contentType: 'application/json',
+
+          data: JSON.stringify(objLoginSenha),
+
+          success: function(data) {
+
+            retorno = data;
+
+          },
+
+          error: function() {
+
+            retorno = false;
+
+          },
+
+          async: false
+
+        });
+
+
+
+        return retorno;
+
+      }
+
+    </script>
+
+  </body>
+
+</html>
