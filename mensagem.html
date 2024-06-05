@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+  <head>
+
+    <meta charset="UTF-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Luxo - Contato</title>
+
+    <link rel="shortcut icon" href="images/barco2.png" type="image/x-icon" />
+
+    <link rel="stylesheet" href="css/cssmsg.css" />
+
+    <link rel="stylesheet" href="css/default.css">
+
+  </head>
+
+
+
+  <body>
+
+    <div class="page">
+
+    <header>
+
+      <div id="title">
+
+        <img src="images/barco1.png" alt="ícone de barco" />
+
+        <div class="headtitle">
+
+          <h1>Luxo</h1>
+
+          <h2>Aluguel de iates</h2>
+
+        </div>
+
+      </div>
+
+
+
+      <nav>
+
+        <ul class="navmenu">
+
+          <li><a href="index.html">Voltar para Página inicial</a></li>
+
+          <li><a class="accent">Mensagens</a></li>
+
+        </ul>
+
+      </nav>
+
+    </header>
+
+
+
+    <main>
+
+      <div class="pagtitle">
+
+        <div class="bgtitle"></div>
+
+        <h2>Mensagens</h2>
+
+      </div>
+
+      
+
+        <body>
+
+        
+
+        <h2>Lista das Mensagens</h2>
+
+        
+
+        <table id="tabela">
+
+          <thead>
+
+            <tr>
+
+              <th>Nome</th>
+
+              <th>Mensagem</th>
+
+              <th>E-mail</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="corpo-tabela">
+
+          </tbody>
+
+        </table>
+
+
+
+      </div>
+
+    </main>
+
+    </div>
+
+
+
+    <footer>
+
+      <p>© 2023 por Luxo aluguel de iates</p>
+
+    </footer>
+
+    <script src="js/jquery-3.6.4.min.js"></script>
+
+    <script src="js/api.js"></script>
+
+    <script>
+
+        function preencherTabela(mensagens) {
+
+            var tabela = document.getElementById('corpo-tabela');
+
+        
+
+            mensagens.forEach(function(mensagem) {
+
+                var novaLinha = tabela.insertRow();
+
+        
+
+                var celulaNome = novaLinha.insertCell(0);
+
+                celulaNome.textContent = mensagem.nome;
+
+        
+
+                var celulaEmail = novaLinha.insertCell(1);
+
+                celulaEmail.textContent = mensagem.email;
+
+        
+
+                var celulaMensagem = novaLinha.insertCell(2);
+
+                celulaMensagem.textContent = mensagem.mensagem;
+
+            });
+
+        }
+
+        obterMensagens()
+
+        .then(function(mensagens) {
+
+            preencherTabela(mensagens);
+
+        })
+
+        .catch(function(error) {
+
+            console.error(error);
+
+        });
+
+        
+
+      </script>
+
+
+
+  </body>
+
+  </html>
